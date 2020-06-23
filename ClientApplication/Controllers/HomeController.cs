@@ -11,9 +11,8 @@ namespace ClientApplication.Controllers
 {
     public class HomeController : Controller
     {
-        private String username;
-        private String password;
-        private String tokenapp;
+        public SqlConnection con = new SqlConnection(@"Data Source=JIREN-SAMA;Initial Catalog=ClientApplication;Integrated Security=True");
+
         public ActionResult Index()
         {
             return View();
@@ -24,40 +23,22 @@ namespace ClientApplication.Controllers
         [HttpPost]
         public ContentResult Index(User user)
         {
-            SqlConnection con = new SqlConnection(@"Data Source=GEARLESS-JOE;Initial Catalog=ClientDatabase;Integrated Security=True");
-            String query = "Select FirstName,UserPassword From UserList where Firstname ='" + user.userName + "' and UserPassword ='" + user.password + "'";
-            SqlCommand cmd = new SqlCommand(query, con);
-            con.Open();
-            String output = cmd.ExecuteScalar().ToString();
-
-            if (output == "1")
+            
+            SqlDataAdapter sda = new SqlDataAdapter("Select Count(*) From UserList where Firstname ='" + user.userName + "' and UserPassword ='" + user.password + "'", con);
+            DataTable dt = new DataTable(); 
+            sda.Fill(dt);
+            if (dt.Rows[0][0].ToString() == "1")
             {
-                ViewBag.Message = "Vous êtes connecté";
+                Response.Write("Vous êtes connecté");
+                //ViewBag.Message = "Vous êtes connecté";
             }
             else
             {
-                Response.Write("Veuillez vérifier vos informations");
+                ViewBag.Message("Invalid username or password");
             }
+
             return Content(user.userName + " " + user.password);
         }
 
-        public void logButton(object sender, EventArgs e)
-        {
-
-            /*SqlConnection con = new SqlConnection(@"Data Source=GEARLESS-JOE;Initial Catalog=ClientDatabase;Integrated Security=True");
-            String query = "Select FirstName,UserPassword From UserList where Firstname ='" + username + "' and UserPassword ='" + password + "'";
-            SqlCommand cmd = new SqlCommand(query, con);
-            con.Open();
-            String output = cmd.ExecuteScalar().ToString();
-
-            if (output == "1")
-            {
-                ViewBag.Message = "Vous êtes connecté";
-            }
-            else
-            {
-                Response.Write("Veuillez vérifier vos informations");
-            }*/
-        }
     }
 }
