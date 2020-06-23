@@ -19,7 +19,6 @@ namespace ClientApplication.Controllers
         }
 
 
-
         [HttpPost]
         public ContentResult Index(User user)
         {
