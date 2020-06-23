@@ -2,8 +2,52 @@
     ViewBag.Title = "Page de connexion";
 }
 
+<link href="@Url.Content("/Content/HomePage.css")" rel="stylesheet" type="text/css" />
+
+<script href="@Url.Content("/Content/HomePage.js")" type="text/javascript"></script>
+
 <div class="row">
-    <h1>
+    <h1 class="HomePageh1">
         Veuillez vous connectez pour déchiffrer votre fichier !
     </h1>
+</div>
+
+<div class="row" style="margin-bottom:15px">
+    <div class="col-md-4">
+
+    </div>
+    <div class="col-md-2">
+        <label for="name">Identifiant</label>
+
+    </div>
+    <div class="col-md-3">
+        <input type="text" name="name" id="name">
+        <span class="spin"></span>
+    </div>
+</div>
+
+<div class="row" style="margin-bottom:15px">
+    <div class="col-md-4">
+
+    </div>
+    <div class="col-md-2">
+        <label for="pass">Mot de passe</label>
+    </div>
+
+    <div class="col-md-3">
+        <input type="password" name="pass" id="pass">
+        <span class="spin"></span>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+
+    </div>
+
+    <div class="col-md-4 connexion">
+        <div class="button login">
+            <button><span>Connexion</span> <i class="fa fa-check"></i></button>
+        </div>
+    </div>
 </div>
