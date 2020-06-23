@@ -24,15 +24,40 @@ namespace ClientApplication.Controllers
         [HttpPost]
         public ContentResult Index(User user)
         {
+            SqlConnection con = new SqlConnection(@"Data Source=GEARLESS-JOE;Initial Catalog=ClientDatabase;Integrated Security=True");
+            String query = "Select FirstName,UserPassword From UserList where Firstname ='" + user.userName + "' and UserPassword ='" + user.password + "'";
+            SqlCommand cmd = new SqlCommand(query, con);
+            con.Open();
+            String output = cmd.ExecuteScalar().ToString();
+
+            if (output == "1")
+            {
+                ViewBag.Message = "Vous êtes connecté";
+            }
+            else
+            {
+                Response.Write("Veuillez vérifier vos informations");
+            }
             return Content(user.userName + " " + user.password);
         }
 
         public void logButton(object sender, EventArgs e)
         {
-            SqlConnection con = new SqlConnection(@"Data Source=GEARLESS-JOE;Initial Catalog=ClientDatabase;Integrated Security=True");
-            SqlDataAdapter sda = new SqlDataAdapter("Select FirstName,UserPassword, TokenApp From UserList where Firstname ='" + username + "' and UserPassword ='" + password + "' and TokenApp='"+ tokenapp +"'", con);
-            DataTable dt = new DataTable();
-            sda.Fill(dt);
+
+            /*SqlConnection con = new SqlConnection(@"Data Source=GEARLESS-JOE;Initial Catalog=ClientDatabase;Integrated Security=True");
+            String query = "Select FirstName,UserPassword From UserList where Firstname ='" + username + "' and UserPassword ='" + password + "'";
+            SqlCommand cmd = new SqlCommand(query, con);
+            con.Open();
+            String output = cmd.ExecuteScalar().ToString();
+
+            if (output == "1")
+            {
+                ViewBag.Message = "Vous êtes connecté";
+            }
+            else
+            {
+                Response.Write("Veuillez vérifier vos informations");
+            }*/
         }
     }
 }
