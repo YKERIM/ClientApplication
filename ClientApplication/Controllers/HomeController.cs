@@ -18,18 +18,21 @@ namespace ClientApplication.Controllers
             return View();
         }
 
+        public ActionResult Authentification()
+        {
+            return View();
+        }
 
         [HttpPost]
         public ContentResult Index(User user)
         {
-            
+
             SqlDataAdapter sda = new SqlDataAdapter("Select Count(*) From UserList where Firstname ='" + user.userName + "' and UserPassword ='" + user.password + "'", con);
-            DataTable dt = new DataTable(); 
+            DataTable dt = new DataTable();
             sda.Fill(dt);
             if (dt.Rows[0][0].ToString() == "1")
             {
-                Response.Write("Vous êtes connecté");
-                //ViewBag.Message = "Vous êtes connecté";
+                Response.Redirect("Home/Authentification");
             }
             else
             {
