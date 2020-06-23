@@ -7,12 +7,12 @@ namespace ClientApplication.Models
 {
     public class User
     {
-        string userName;
+        public string userName { get; set; }
 
-        string password;
+        public string password { get; set; }
 
-        string tokenApp;
+        public string tokenApp { get; set; }
 
-        string tokenUser;
+        public string tokenUser { get; set; }
     }
 }

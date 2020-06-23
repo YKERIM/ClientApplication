@@ -1,4 +1,6 @@
-﻿@{
+﻿@model ClientApplication.Models.User
+
+@{
     ViewBag.Title = "Page de connexion";
 }
 
@@ -6,48 +8,56 @@
 
 <script href="@Url.Content("/Content/HomePage.js")" type="text/javascript"></script>
 
+
 <div class="row">
     <h1 class="HomePageh1">
         Veuillez vous connectez pour déchiffrer votre fichier !
     </h1>
 </div>
 
-<div class="row" style="margin-bottom:15px">
-    <div class="col-md-4">
+
+@using (Html.BeginForm())
+ {
+    <div class="row" style="margin-bottom:15px">
+        <div class="col-md-3">
+        </div>
+
+        <div class="col-md-2 identifiant">
+            <label for="pass">Identifiant</label>
+        </div>
+
+        <div class="col-md-3">
+            @Html.TextBoxFor(m => m.userName)
+        </div>
 
     </div>
-    <div class="col-md-2">
-        <label for="name">Identifiant</label>
+    
 
-    </div>
-    <div class="col-md-3">
-        <input type="text" name="name" id="name">
-        <span class="spin"></span>
-    </div>
-</div>
+    <div class="row" style="margin-bottom:15px">
+        <div class="col-md-3">
+        </div>
 
-<div class="row" style="margin-bottom:15px">
-    <div class="col-md-4">
+        <div class="col-md-2">
+            <label for="pass">Mot de passe</label>
+        </div>
 
-    </div>
-    <div class="col-md-2">
-        <label for="pass">Mot de passe</label>
-    </div>
-
-    <div class="col-md-3">
-        <input type="password" name="pass" id="pass">
-        <span class="spin"></span>
-    </div>
-</div>
-
-<div class="row">
-    <div class="col-md-4">
-
-    </div>
-
-    <div class="col-md-4 connexion">
-        <div class="button login">
-            <button><span>Connexion</span> <i class="fa fa-check"></i></button>
+        <div class="col-md-3 password">
+            @Html.TextBoxFor(m => m.password)
         </div>
     </div>
-</div>
+
+    <div class="row" style="text-align:center">
+
+        <div class="col-md-4">
+        </div>
+
+        <div class="col-md-3">
+            <input type="submit" value="Connexion" />
+        </div>
+    </div>
+ }
+
+
+
+
+

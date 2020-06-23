@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ClientApplication.Models;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -19,12 +20,12 @@ namespace ClientApplication.Controllers
         }
 
 
-   /*     public ActionResult LoginPage()
-        {
-            ViewBag.Message = "Veuillez vous connectez";
 
-            return View();
-        } */
+        [HttpPost]
+        public ContentResult Index(User user)
+        {
+            return Content(user.userName + " " + user.password);
+        }
 
         public void logButton(object sender, EventArgs e)
         {
