@@ -8,6 +8,7 @@ package com.java.processingplatform;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -50,7 +51,7 @@ public class Connection implements IConnection {
 
     public static List<String> getListWord() {
         
-        List<String> listWord;
+        List<String> listWord = new ArrayList<>();
         
         try{  
 
@@ -58,10 +59,10 @@ public class Connection implements IConnection {
 
                 Statement stmt = con.createStatement();
 
-                ResultSet rs = stmt.executeQuery("SELECT WORD FROM DICTIONNARY");
+                ResultSet rs = stmt.executeQuery("SELECT regexp_replace(WORD, '[[:space:]]*','') FROM DICTIONNARY");
                 System.out.println(rs);
                 while (rs.next()) {
-                    listWord.Add(rs.getString(1));  
+                    listWord.add(rs.getString(1));  
                 }
                 
                 con.close(); 
