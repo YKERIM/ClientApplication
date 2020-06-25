@@ -2,9 +2,9 @@
 
 @{
     ViewBag.Title = "Index";
-}
 
-<link href="@Url.Content("/Content/HomePage.css")" rel="stylesheet" type="text/css"/>
+}
+<link href="@Url.Content("/Content/HomePage.css")" rel="stylesheet" type="text/css" />
 <script src="@Url.Content("/Content/HomePage.js")" type="text/javascript"></script>
 
 @{
@@ -16,6 +16,11 @@
         Veuillez vous connectez pour déchiffrer votre fichier !
     </h1>
 </div>
+
+<h2>
+    @ViewBag.Message
+</h2>
+
 
 @using (Html.BeginForm())
 {

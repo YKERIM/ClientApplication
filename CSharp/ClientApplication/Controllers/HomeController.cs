@@ -1,4 +1,5 @@
 ﻿using ClientApplication.Models;
+using ClientWCF;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -14,9 +15,11 @@ namespace ClientApplication.Controllers
     {
         public List<User> user_saved = new List<User>();
         public SqlConnection con = new SqlConnection(@"Data Source=JIREN-SAMA;Initial Catalog=ClientApplication;Integrated Security=True");
+        ServiceClient client = new ServiceClient();
 
         public ActionResult Index()
         {
+            ViewBag.Message = client.Message();
             return View();
         }
 
