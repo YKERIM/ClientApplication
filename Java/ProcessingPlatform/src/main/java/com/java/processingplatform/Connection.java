@@ -8,20 +8,25 @@ package com.java.processingplatform;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.List;
 
 /**
  *
  * @author malor
  */
-public class Connection {
+public class Connection implements IConnection {
     
-    public static void main(String args[]){  
+    private static final String CONNECTURL = "jdbc:oracle:thin:@localhost:1522:xe";
+    private static final String USERNAME = "system";
+    private static final String PASSWORD = "root";
+    
+    public void connection(){  
         
         System.out.println("launch");
         
         try{  
 
-            try (java.sql.Connection con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1522:xe","system","root")) {
+            try (java.sql.Connection con = DriverManager.getConnection(CONNECTURL,USERNAME,PASSWORD)) {
 
                 Statement stmt = con.createStatement();
 
@@ -40,4 +45,11 @@ public class Connection {
         }  
 
     }    
+
+    public static List<String> getListWord() {
+        
+        List<String> listWord = "test";
+        
+        return listWord;
+    }
 }
