@@ -1,11 +1,11 @@
-﻿.LogPage {
+﻿.AuthentificationPage {
     color: white;
 }
 
-#row_logpage {
+#row_auth {
     text-align: center;
     display: block;
-    margin-bottom:25px;
+    margin-bottom: 25px;
 }
 
 body {
@@ -16,8 +16,4 @@ body {
     min-height: 100vh;
     font-family: 'Roboto', sans-serif;
     overflow: hidden;
-}
-
-.col-md-4.connexion{
-    text-align:center;
 }

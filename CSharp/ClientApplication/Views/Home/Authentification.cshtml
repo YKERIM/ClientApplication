@@ -1,7 +1,56 @@
-﻿
+﻿@model ClientApplication.Models.User
+
 @{
-    ViewBag.Title = "AuthentificationPage";
+    ViewBag.Title = "Authentification";
 }
 
-<h2>AuthentificationPage</h2>
+<link href="@Url.Content("/Content/Authpage.css")" rel="stylesheet" type="text/css" />
+
+
+@{
+    var data = ViewBag.Message;
+}
+
+<div class="row" id="row_auth">
+    <h1 class="AuthentificationPage">
+        Veuillez insérer votre jeton pour vous authentifier !
+    </h1>
+</div>
+
+@using (Html.BeginForm())
+{
+    <row>
+        <div class="col-md-3">
+        </div>
+
+        <div class="col-md-2 tokenapp">
+            <label for="pass">Token App</label>
+        </div>
+
+        <div class="col-md-3">
+            @Html.TextBoxFor(m => m.tokenApp)
+        </div>
+    </row>
+
+    <div class="row" style="text-align:center">
+        <div class="col-md-4">
+        </div>
+
+        @if (@data != null)
+        {
+            <div class="col-md-3">
+                <input type="submit" value="Connexion" />
+                <p id="message_erreur" style="color:red; display:block; margin-top:15px">Le t ou le mot de passe est éronné !</p>
+            </div>
+        }
+
+        else
+        {
+            <div class="col-md-3">
+                <input type="submit" value="Connexion" />
+                <p id="message_erreur" style="color:red; display:none; margin-top:15px">L'identifiant ou le mot de passe est éronné !</p>
+            </div>
+        }
+    </div>
+}
 
