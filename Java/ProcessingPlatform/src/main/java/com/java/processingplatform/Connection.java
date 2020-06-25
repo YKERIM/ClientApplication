@@ -35,6 +35,8 @@ public class Connection implements IConnection {
                 while (rs.next()) {
                     System.out.println(rs.getString(1)+"  "+rs.getString(2));  
                 }
+                
+                con.close(); 
 
             } catch(Exception e){ 
                 System.out.println(e);
@@ -48,7 +50,29 @@ public class Connection implements IConnection {
 
     public static List<String> getListWord() {
         
-        List<String> listWord = "test";
+        List<String> listWord;
+        
+        try{  
+
+            try (java.sql.Connection con = DriverManager.getConnection(CONNECTURL,USERNAME,PASSWORD)) {
+
+                Statement stmt = con.createStatement();
+
+                ResultSet rs = stmt.executeQuery("SELECT WORD FROM DICTIONNARY");
+                System.out.println(rs);
+                while (rs.next()) {
+                    listWord.Add(rs.getString(1));  
+                }
+                
+                con.close(); 
+
+            } catch(Exception e){ 
+                System.out.println(e);
+            }  
+
+        } catch(Exception e){ 
+            System.out.println(e);
+        }  
         
         return listWord;
     }
