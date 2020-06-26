@@ -13,13 +13,12 @@ namespace ClientApplication.Controllers
 {
     public class HomeController : Controller
     {
-        public List<User> user_saved = new List<User>();
         public SqlConnection con = new SqlConnection(@"Data Source=JIREN-SAMA;Initial Catalog=ClientApplication;Integrated Security=True");
         ServiceClient client = new ServiceClient();
 
         public ActionResult Index()
         {
-            ViewBag.Message = client.Message();
+   //         ViewBag.Message = client.Message();
             return View();
         }
 
@@ -36,7 +35,8 @@ namespace ClientApplication.Controllers
             sda.Fill(dt);
             if (dt.Rows[0][0].ToString() == "1")
             {
-                user_saved.Add(user);
+                SqlDataAdapter sdb = new SqlDataAdapter("Update UserList set State = 1 where Firstname ='" + user.userName + "' and UserPassword ='" + user.password + "'" , con);
+                sdb.Fill(dt);
                 Response.Redirect("~/Home/Authentification");
             }
             else
@@ -50,27 +50,8 @@ namespace ClientApplication.Controllers
         [HttpPost]
         public ActionResult Authentification(User user)
         {
-            foreach (var current_user in user_saved)
-            {
-                if (current_user.tokenApp == user.tokenApp)
-                {
-                    user.userName = current_user.userName;
-                    user.password = current_user.password;
-                }
-            }
 
-            SqlDataAdapter sda = new SqlDataAdapter("Select Count(*) From UserList where Firstname ='" + user.userName + "' and UserPassword ='" + user.password + "' and TokenApp = '" + user.tokenApp + "'", con);
-            DataTable dt = new DataTable();
-            sda.Fill(dt);
-
-            if (dt.Rows[0][0].ToString() == "1")
-            {
-                Response.Redirect("~/Home/DecryptagePage");
-            }
-            else
-            {
-                ViewBag.Message = user;
-            }
+            ViewBag.Message = client.TokenApp();
 
             return View();
         }

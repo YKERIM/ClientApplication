@@ -12,6 +12,10 @@ namespace ClientWCF
     public interface IServiceClient
     {
         [OperationContract]
-        string Message();
+        string TokenApp();
+
+        [OperationContract]
+        [System.ServiceModel.Web.WebInvoke(Method = "POST", ResponseFormat = System.ServiceModel.Web.WebMessageFormat.Json, RequestFormat = System.ServiceModel.Web.WebMessageFormat.Json, BodyStyle = System.ServiceModel.Web.WebMessageBodyStyle.Bare, UriTemplate = "Squaring")]
+        string Squaring(string x);
     }
 }

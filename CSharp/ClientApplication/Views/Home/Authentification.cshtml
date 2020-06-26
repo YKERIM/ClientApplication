@@ -5,7 +5,7 @@
 }
 
 <link href="@Url.Content("/Content/Authpage.css")" rel="stylesheet" type="text/css" />
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
 @{
     var data = ViewBag.Message;
@@ -54,3 +54,22 @@
     </div>
 }
 
+<input type="text" id="val1"/>
+<button onclick="Square();">Squaring</button>
+
+<script>
+    function Square() {
+        var value = $("#val1").val();
+        console.log(value);
+        $.ajax({
+            url: 'ServiceClient.svc/Squaring',
+            type: "POST",
+            data: JSON.stringify(value),
+            dataType: "json",         
+            contentType: "application/json",
+            success: function (resultdata) {
+                alert(resultdata);
+            },
+        });
+    }
+</script>

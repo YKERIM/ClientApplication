@@ -4,6 +4,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.Text;
+using System.Web.UI.WebControls.WebParts;
 
 namespace ClientWCF
 {
@@ -11,9 +12,14 @@ namespace ClientWCF
     // REMARQUE : pour lancer le client test WCF afin de tester ce service, sélectionnez ServiceClient.svc ou ServiceClient.svc.cs dans l'Explorateur de solutions et démarrez le débogage.
     public class ServiceClient : IServiceClient
     {
-        public string Message()
+        public string TokenApp()
         {
-            return "Voici mon WCF";
+            return "Voici le Token App";
+        }
+
+        public string Squaring(string x)
+        {
+            return "ok";
         }
     }
 }
