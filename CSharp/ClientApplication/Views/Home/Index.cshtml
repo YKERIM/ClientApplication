@@ -12,15 +12,15 @@
     var data = ViewBag.Message;
 }
 
-<div class="row" id="row_logpage">
-    <h1 class="LogPage">
-        Veuillez vous connectez pour déchiffrer votre fichier !
-    </h1>
-</div>
+
+<h1 id="titre_login">
+    Veuillez vous connectez pour déchiffrer votre fichier !
+</h1>
+
 
 @using (Html.BeginForm())
  {
-    <div class="row" style="margin-bottom:15px">
+    <div class="row" id="row_identifiant">
         <div class="col-md-3">
         </div>
 
@@ -34,20 +34,20 @@
     </div>
 
 
-    <div class="row" style="margin-bottom:25px">
+    <div class="row" id="row_password">
         <div class="col-md-3">
         </div>
 
-        <div class="col-md-2">
+        <div class="col-md-2 password">
             <label for="pass">Mot de passe</label>
         </div>
 
         <div class="col-md-3 password">
-            @Html.TextBoxFor(m => m.password)
+            @Html.PasswordFor(m => m.password)
         </div>
     </div>
 
-    <div class="row" style="text-align:center">
+    <div class="row" id="row_connexion">
         <div class="col-md-4">
         </div>
 
@@ -55,7 +55,7 @@
         {
             <div class="col-md-3">
                 <input type="submit" value="Connexion" />
-                <p id="message_erreur" style="color:red; display:block; margin-top:15px">L'identifiant ou le mot de passe est éronné !</p>
+                <p id="message_erreur" style="color:red; display:block; margin-top:15px; font-weight:bold; font-size:16px">L'identifiant ou le mot de passe est éronné !</p>
             </div>
         }
 
@@ -63,7 +63,7 @@
         {
             <div class="col-md-3">
                 <input type="submit" value="Connexion" />
-                <p id="message_erreur" style="color:red; display:none; margin-top:15px">L'identifiant ou le mot de passe est éronné !</p>
+                <p id="message_erreur" style="color:red; display:none; margin-top:15px; font-weight:bold; font-size:16px">L'identifiant ou le mot de passe est éronné !</p>
             </div>
         }
     </div>

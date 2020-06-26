@@ -16,24 +16,28 @@ namespace ClientWCF
     {
         public SqlConnection con = new SqlConnection(@"Data Source=JIREN-SAMA;Initial Catalog=ClientApplication;Integrated Security=True");
 
-        public string TokenApp(string token)
+        public string TokenApp(string TokenApp)
         {
-            string name = "Armand";
-            string mdp = "Kaaris_93";
-            SqlDataAdapter sda = new SqlDataAdapter("Select Count(*) From UserList where Firstname ='" + name + "' and UserPassword ='" + mdp + "'", con);
+            Guid Guid_TokenUser;
+            string TokenUser = null;
+            SqlDataAdapter sda = new SqlDataAdapter("Select Count(*) From UserList where TokenApp ='" + TokenApp + "' and State ='" + 1 + "'", con);
             DataTable dt = new DataTable();
             sda.Fill(dt);
 
             if (dt.Rows[0][0].ToString() == "1")
             {
-                token = "lourd";
+
+                Guid_TokenUser = Guid.NewGuid();
+                TokenUser = Guid_TokenUser.ToString();
+                SqlDataAdapter sdb = new SqlDataAdapter("Update UserList set TokenUser = '" + Guid_TokenUser + "' where TokenApp ='" + TokenApp +  "'", con);
+                sdb.Fill(dt);
             }
             else
             {
-                token = "pas bon";
+                
             }
 
-            return token;
+            return TokenUser;
         }
     }
 }

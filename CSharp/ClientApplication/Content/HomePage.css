@@ -1,11 +1,8 @@
-﻿.LogPage {
-    color: white;
-}
-
-#row_logpage {
+﻿#titre_login {
     text-align: center;
-    display: block;
-    margin-bottom:25px;
+    margin-bottom: 25px;
+    font-weight:bold;
+    color: white;
 }
 
 body {
@@ -20,4 +17,26 @@ body {
 
 .col-md-4.connexion{
     text-align:center;
+}
+
+.col-md-2.identifiant {
+    font-weight: bold;
+    font-size: 18px
+}
+
+#row_identifiant {
+    margin-bottom: 15px
+}
+
+#row_password {
+    margin-bottom: 25px
+}
+
+.col-md-2.password {
+    font-weight: bold;
+    font-size: 18px
+}
+
+#row_connexion {
+    text-align: center
 }

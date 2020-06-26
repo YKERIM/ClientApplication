@@ -14,15 +14,19 @@ namespace ClientApplication.Controllers
     public class HomeController : Controller
     {
         public SqlConnection con = new SqlConnection(@"Data Source=JIREN-SAMA;Initial Catalog=ClientApplication;Integrated Security=True");
-        ServiceClient client = new ServiceClient();
+        ServiceClient WCFClient = new ServiceClient();
 
         public ActionResult Index()
         {
-   //         ViewBag.Message = client.Message();
             return View();
         }
 
         public ActionResult Authentification()
+        {
+            return View();
+        }
+
+        public ActionResult Decryptage()
         {
             return View();
         }
@@ -50,7 +54,18 @@ namespace ClientApplication.Controllers
         [HttpPost]
         public ActionResult Authentification(User user)
         {
-            ViewBag.Message = client.TokenApp(user.tokenApp);
+            ViewBag.Message = WCFClient.TokenApp(user.tokenApp);
+
+            if(ViewBag.Message != null)
+            {
+                Response.Redirect("~/Home/Decryptage");
+            }
+
+            else
+            {
+
+                ViewBag.Message = "wrong";
+            }
 
             return View();
         }

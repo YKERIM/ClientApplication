@@ -1,11 +1,9 @@
-﻿.AuthentificationPage {
-    color: white;
-}
-
-#row_auth {
+﻿#titre_authentification {
     text-align: center;
-    display: block;
     margin-bottom: 25px;
+    text-align: center;
+    font-weight: bold;
+    color: white;
 }
 
 body {
@@ -16,4 +14,22 @@ body {
     min-height: 100vh;
     font-family: 'Roboto', sans-serif;
     overflow: hidden;
+}
+
+#row_tokenapp {
+    margin-bottom: 15px
+}
+
+.col-md-2.tokenapp {
+    text-align: center;
+    font-weight: bold;
+    font-size: 18px
+}
+
+.col-md-3.tokenapp_bind {
+    padding: 0px
+}
+
+#row_valider {
+    text-align: center;
 }
