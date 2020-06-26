@@ -5,6 +5,9 @@
  */
 package com.java.processingplatform;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 /**
  *
  * @author malor
@@ -13,7 +16,17 @@ public class SecretFinder {
     
     private final String secretMessage = "l’information secrète";
     
-    public void findSecretWord() {
+    public boolean findSecretWord(String message) {
+        
+        String patternString = "b\\("+ secretMessage +")\\b";
+        Pattern pattern = Pattern.compile(patternString,Pattern.CASE_INSENSITIVE);
+        Matcher matcher = pattern.matcher(message);
+
+        if (matcher.find()) {
+            return true;
+        } else {
+            return false;
+        }
         
     }
 }

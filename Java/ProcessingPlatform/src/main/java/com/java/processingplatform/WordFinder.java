@@ -15,9 +15,9 @@ import java.util.regex.Pattern;
  */
 public class WordFinder {
     
-    private static List<String> dictionary = null;
+    static List<String> dictionary;
     
-    WordFinder() {
+    public WordFinder() {
         if (dictionary == null) {
             dictionary = Connection.getListWord();
         }
@@ -25,7 +25,7 @@ public class WordFinder {
        
     }
     
-    public static int findMatchingWord(String testingWord) {
+    public int findMatchingWord(String testingWord) {
         
         int MatchingNumber = 0;
         
