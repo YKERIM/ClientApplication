@@ -60,7 +60,6 @@ public class Connection implements IConnection {
                 Statement stmt = con.createStatement();
 
                 ResultSet rs = stmt.executeQuery("SELECT regexp_replace(WORD, '[[:space:]]*','') FROM DICTIONNARY");
-                System.out.println(rs);
                 while (rs.next()) {
                     listWord.add(rs.getString(1));  
                 }

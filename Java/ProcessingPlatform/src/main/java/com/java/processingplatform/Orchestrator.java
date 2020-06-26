@@ -10,5 +10,23 @@ package com.java.processingplatform;
  * @author malor
  */
 public class Orchestrator {
-    
+        
+        //Constructeur commenter pour la phase de test
+        public Orchestrator(FileToCheck fileToCheck) {
+            
+            String textDocument = fileToCheck.getFile();
+            
+            WordFinder wordFinder = new WordFinder();
+            int numberValideWord = wordFinder.findMatchingWord(textDocument);
+
+            //Calcule nb mot dans la phrase
+            String[] words = textDocument.split("\\s+");
+
+            float coverage = (float)((numberValideWord*100)/words.length); 
+            System.out.println(coverage + "%");
+            
+            //Contient le mot secret
+            SecretFinder secretFinder = new SecretFinder();
+            boolean secretWord = secretFinder.findSecretWord(textDocument);
+        }     
 }
