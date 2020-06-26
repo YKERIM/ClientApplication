@@ -50,8 +50,8 @@ namespace ClientApplication.Controllers
         [HttpPost]
         public ActionResult Authentification(User user)
         {
-
-            ViewBag.Message = client.TokenApp();
+            client.TokenApp(user.tokenApp);
+            ViewBag.Message = client.TokenApp(user.tokenApp);
 
             return View();
         }

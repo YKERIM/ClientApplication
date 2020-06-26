@@ -12,14 +12,11 @@ namespace ClientWCF
     // REMARQUE : pour lancer le client test WCF afin de tester ce service, sélectionnez ServiceClient.svc ou ServiceClient.svc.cs dans l'Explorateur de solutions et démarrez le débogage.
     public class ServiceClient : IServiceClient
     {
-        public string TokenApp()
+        public string TokenApp(string token)
         {
-            return "Voici le Token App";
-        }
 
-        public string Squaring(string x)
-        {
-            return "ok";
+            token = "ca marche";
+            return token;
         }
     }
 }
