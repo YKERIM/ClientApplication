@@ -5,7 +5,6 @@
  */
 package com.java.processingplatform;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -16,7 +15,7 @@ import java.util.regex.Pattern;
  */
 public class WordFinder {
     
-    private static List<String> dictionary;
+    private static List<String> dictionary = null;
     
     WordFinder() {
         if (dictionary == null) {
@@ -70,19 +69,5 @@ public class WordFinder {
         }
         
        return MatchingNumber;
-    }
-    
-    
-    public static void main(String[] args) {
-        dictionary = Connection.getListWord();
-           
-        String phrase = "Bonjour ceci est un teste avec un mot qui existe pas aaeaf";
-        
-        int number = findMatchingWord(phrase);
-        
-        //Calcule nb mot dans la phrase
-        
-        
-   }
-   
+    }   
 }
