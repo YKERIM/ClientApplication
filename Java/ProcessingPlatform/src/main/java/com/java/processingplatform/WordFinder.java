@@ -26,38 +26,63 @@ public class WordFinder {
        
     }
     
-    public static void findMatchingWord(String testingWord) {
+    public static int findMatchingWord(String testingWord) {
         
-        List<String> tokens = new ArrayList<String>();
+        int MatchingNumber = 0;
         
         StringBuilder sb = new StringBuilder( "\\b(" );
+        String patternString;
         String del = "";
+        int ctp = 0;
+        
         for( String element: dictionary ){
+            
             sb.append( del ).append( element );
             del = "|";
-        }
-        String patternString = sb.toString() + ")\\b";
-        System.out.println(patternString);
+            
+            //Decoupage du dictionnaire
+            if (ctp == Math.round(dictionary.size()/20)) {
 
-        Pattern pattern = Pattern.compile(patternString);
+                patternString = sb.toString() + ")\\b";
+                Pattern pattern = Pattern.compile(patternString,Pattern.CASE_INSENSITIVE);
+                Matcher matcher = pattern.matcher(testingWord);
+
+                while (matcher.find()) {
+                    MatchingNumber++;
+                }
+                
+                ctp = 0;
+                sb = new StringBuilder( "\\b(" );
+                del = "";
+                
+            }
+            ctp++;
+        }
+        
+        patternString = sb.toString() + ")\\b";
+        
+        
+        Pattern pattern = Pattern.compile(patternString,Pattern.CASE_INSENSITIVE);
         Matcher matcher = pattern.matcher(testingWord);
 
         while (matcher.find()) {
-            System.out.println(matcher.group(1));
+            MatchingNumber++;
         }
         
+       return MatchingNumber;
     }
     
     
     public static void main(String[] args) {
         dictionary = Connection.getListWord();
-        
-        for( String element : dictionary ) {
-            System.out.println( element );
-        }
            
         String phrase = "Bonjour ceci est un teste avec un mot qui existe pas aaeaf";
-        findMatchingWord(phrase);
+        
+        int number = findMatchingWord(phrase);
+        
+        //Calcule nb mot dans la phrase
+        
+        
    }
    
 }
