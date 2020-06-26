@@ -34,7 +34,7 @@ public class JMSReceiver implements MessageListener {
             FileToCheck fileInfo = (FileToCheck) unmarshaller.unmarshal(reader);
             
             // A partir d'ici, fileInfo peut être utilisé comme voulu, par exemple passé à un orchestrator
-            // Orchestrator orchestrator = new Orchestrator(fileInfo);
+            Orchestrator orchestrator = new Orchestrator(fileInfo);
             
             System.out.println("Processed @" + LocalTime.now() + " : [filename: " + fileInfo.getFileName() + " ; file: " + fileInfo.getFile() + " ; key: " + fileInfo.getKey() + "]");
             System.out.println(checkingMessage);

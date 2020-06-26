@@ -12,7 +12,10 @@ package com.java.processingplatform;
 public class Orchestrator {
         
         //Constructeur commenter pour la phase de test
-        public Orchestrator(String textDocument) {
+        public Orchestrator(FileToCheck fileToCheck) {
+            
+            String textDocument = fileToCheck.getFile();
+            
             WordFinder wordFinder = new WordFinder();
             int numberValideWord = wordFinder.findMatchingWord(textDocument);
 
