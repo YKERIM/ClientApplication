@@ -72,7 +72,7 @@ namespace ClientApplication.Controllers
         }
 
         [HttpPost]
-        public ActionResult SaveFiles(HttpPostedFileBase UploadedFile)
+        public ActionResult Decryptage(HttpPostedFileBase UploadedFile)
         {
             if (UploadedFile.ContentLength > 0)
             {
