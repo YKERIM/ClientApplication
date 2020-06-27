@@ -14,7 +14,7 @@ namespace ClientApplication.Controllers
 {
     public class HomeController : Controller
     {
-        public SqlConnection con = new SqlConnection(@"Data Source=JIREN-SAMA;Initial Catalog=ClientApplication;Integrated Security=True");
+        public SqlConnection con = new SqlConnection(@"Data Source=DESKTOP-2LKBDJM;Initial Catalog=ClientApplication;Integrated Security=True");
         ServiceClient WCFClient = new ServiceClient();
 
         public ActionResult Index()
@@ -76,9 +76,18 @@ namespace ClientApplication.Controllers
         {
             if (UploadedFile.ContentLength > 0)
             {
+                List<string> csvData = new List<string>();
+                using (System.IO.StreamReader reader = new System.IO.StreamReader(UploadedFile.InputStream))
+                {
+                    while (!reader.EndOfStream)
+                    {
+                        csvData.Add(reader.ReadLine());
+                    }
+                }
+                string File = string.Join(" ", csvData.ToArray());
                 string EncryptFileName = Path.GetFileName(UploadedFile.FileName);
                 string FolderPath = Path.Combine(Server.MapPath("~/UploadedFiles"), EncryptFileName);
-
+                WCFClient.KeyDecryptor(File);
                 UploadedFile.SaveAs(FolderPath);
             }
 
