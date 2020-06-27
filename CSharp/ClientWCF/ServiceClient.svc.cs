@@ -16,6 +16,16 @@ namespace ClientWCF
     {
         public SqlConnection con = new SqlConnection(@"Data Source=DESKTOP-2LKBDJM;Initial Catalog=ClientApplication;Integrated Security=True");
 
+        public string attempt = "";
+        public int first = 0;
+        public int second = 0;
+        public int third = 0;
+        public int fourth = 0;
+
+        public string[] array = {
+            "A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z",
+        };
+
         public string TokenApp(string TokenApp)
         {
             Guid Guid_TokenUser;
@@ -40,48 +50,17 @@ namespace ClientWCF
             return TokenUser;
         }
 
-        public string attempt = "";
-        public int first = 0;
-        public int second = 0;
-        public int third = 0;
-        public int fourth = 0;
 
-        public string[] array = {
-                    "A",
-                    "B",
-                    "C",
-                    "D",
-                    "E",
-                    "F",
-                    "G",
-                    "H",
-                    "I",
-                    "J",
-                    "K",
-                    "L",
-                    "M",
-                    "N",
-                    "O",
-                    "P",
-                    "Q",
-                    "R",
-                    "S",
-                    "T",
-                    "U",
-                    "V",
-                    "W",
-                    "X",
-                    "Y",
-                    "Z",
-                    };
-
-        public string EncryptOrDecrypt(string text, string key)
+        public string Decrypt(string text, string key)
         {
             var result = new StringBuilder();
 
             for (int c = 0; c < text.Length; c++)
                 result.Append((char)((uint)text[c] ^ (uint)key[c % key.Length]));
-            System.Diagnostics.Debug.WriteLine(result.ToString());
+            if(key == "ZZZZ")
+            {
+                System.Diagnostics.Debug.WriteLine(result.ToString());
+            }
             return result.ToString();
         }
 
@@ -113,7 +92,7 @@ namespace ClientWCF
                     break;
                 }
                 attempt = array[fourth] + array[third] + array[second] + array[first];
-                EncryptOrDecrypt(text, attempt); 
+                Decrypt(text, attempt); 
                 first++;
             }
         }
