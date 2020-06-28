@@ -72,26 +72,34 @@ namespace ClientApplication.Controllers
         }
 
         [HttpPost]
-        public ActionResult Decryptage(HttpPostedFileBase UploadedFile)
+        public ActionResult Decryptage(HttpPostedFileBase[] UploadedFile)
         {
-            if (UploadedFile.ContentLength > 0)
+            if (ModelState.IsValid)
             {
-                List<string> csvData = new List<string>();
-                using (System.IO.StreamReader reader = new System.IO.StreamReader(UploadedFile.InputStream))
+                foreach (HttpPostedFileBase file in UploadedFile)
                 {
-                    while (!reader.EndOfStream)
+                    if (file != null)
                     {
-                        csvData.Add(reader.ReadLine());
+                        List<string> csvData = new List<string>();
+                        using (System.IO.StreamReader reader = new System.IO.StreamReader(file.InputStream))
+                        {
+                            while (!reader.EndOfStream)
+                            {
+                                csvData.Add(reader.ReadLine());
+                            }
+                        }
+                        string File = string.Join(" ", csvData.ToArray());
+                        var InputFileName = Path.GetFileName(file.FileName);
+                        var FolderSavePath = Path.Combine(Server.MapPath("~/UploadedFiles/") + InputFileName);
+                        //Save file to server folder  
+                        file.SaveAs(FolderSavePath);
+                        //envoi de données vers WCF 
+                        //WCFClient.KeyDecryptor(File);
+                        //assigning file uploaded status to ViewBag for showing message to user.  
+                        ViewBag.Message = UploadedFile.Count().ToString() + " fichiers ont été uploadés avec succés.";
                     }
                 }
-                string File = string.Join(" ", csvData.ToArray());
-                string EncryptFileName = Path.GetFileName(UploadedFile.FileName);
-                string FolderPath = Path.Combine(Server.MapPath("~/UploadedFiles"), EncryptFileName);
-                WCFClient.KeyDecryptor(File);
-                UploadedFile.SaveAs(FolderPath);
             }
-
-            ViewBag.Message = "Vos fichiers ont été insérés avec succès";
 
             return View();
         }

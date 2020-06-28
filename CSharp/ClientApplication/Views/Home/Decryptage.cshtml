@@ -14,7 +14,7 @@
 {
     <div>
 
-        @Html.TextBox("UploadedFile", "", new { type = "file" })
+        @Html.TextBox("UploadedFile", "", new { @type = "file", @multiple = "multiple" })
 
         <input type="submit" value="upload" />
 
