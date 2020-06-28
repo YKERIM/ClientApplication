@@ -57,17 +57,21 @@ namespace ClientApplication.Controllers
         [HttpPost]
         public ActionResult Authentification(User user)
         {
-            ViewBag.Message = WCFClient.TokenApp(user.tokenApp);
-
-            if(ViewBag.Message != null)
+            string TokenUser = WCFClient.TokenApp(user.tokenApp) ;
+            
+            if (TokenUser != null)
             {
-                Response.Redirect("~/Home/Decryptage");
+                ViewData["TokenUser"] = "Votre TokenUser est : " + TokenUser;
+                ViewData["TokenApp"] = user.tokenApp;
+                //Response.Redirect("~/Home/Decryptage");
+                ViewData["TokenUser_Pass"] = 1;
             }
 
             else
             {
 
-                ViewBag.Message = "wrong";
+                // ViewBag.Message = "wrong";
+                ViewData["TokenUser_Pass"] = 0;
             }
 
             return View();
@@ -102,6 +106,17 @@ namespace ClientApplication.Controllers
                 }
 
                 WCFClient.DecryptLauncher(file_user);
+            }
+
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Decryptage(User user)
+        {
+            if (user.tokenUser != null)
+            {
+
             }
 
             return View();

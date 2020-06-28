@@ -13,3 +13,13 @@
     font-weight:bold;
     color:white;
 }
+
+#row_tokenuser{
+    margin-top:15px;
+}
+
+.col-md-2.tokenuser {
+    text-align: center;
+    font-weight: bold;
+    font-size: 18px;
+}

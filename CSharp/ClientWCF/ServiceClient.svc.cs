@@ -42,7 +42,6 @@ namespace ClientWCF
             return TokenUser;
         }
 
-
         public string Decrypt(string text, string key)
         {
             var result = new StringBuilder();
@@ -65,7 +64,7 @@ namespace ClientWCF
             
                 string[] stringArray = new string[2];
 
-                for (int i = 0; i < 5; i++)
+                for (int i = 0; i < 2; i++)
                 {
                     stringArray[0] = file_user[i];
                     stringArray[1] = "" + i;
@@ -75,6 +74,7 @@ namespace ClientWCF
                     Thread.Sleep(10);
                 }
         }
+        
         public void KeyDecryptor(Object args)
         {
             Array argArray = new object[2];

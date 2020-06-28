@@ -8,7 +8,9 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
 @{
-    var data = ViewBag.Message;
+    var tokenuser = ViewData["TokenUser"];
+    var tokenuser_pass = ViewData["TokenUser_Pass"];
+    var tokenapp = ViewData["TokenApp"];
 }
 
 <h1 id="titre_authentification">
@@ -35,20 +37,52 @@
         <div class="col-md-4">
         </div>
 
-        @if (@data != null)
-        {
-            <div class="col-md-3">
-                <input type="submit" value="Valider" />
-                <p id="message_erreur" style="color:red; display:block; margin-top:15px; font-weight:bold; font-size:16px">Votre TokenApp est faux !</p>
-            </div>
-        }
+        <div class="col-md-3">
+            <input id="btn_valider" type="submit" value="Valider" />
+            <p id="message_erreur" style="color:red; display:none; margin-top:15px; font-weight:bold; font-size:16px">Votre TokenApp est faux !</p>
+        </div>
 
-        else
-        {
-            <div class="col-md-3">
-                <input type="submit" value="Valider" />
-                <p id="message_erreur" style="color:red; display:none; margin-top:15px; font-weight:bold; font-size:16px">Votre TokenApp est faux</p>
-            </div>
-        }
+
+    </div>
+
+    <div class="row" id="row_tokenuser">
+        <div class="col-md-3">
+        </div>
+
+        <div class="col-md-6">
+            <p id="message_tokenapp">@tokenuser</p>
+        </div>
+    </div>
+
+    <div class="row" id="row_tokenuser_detail">
+        <div class="col-md-4">
+        </div>
+
+        <div class="col-md-6">
+            <p><a id="message_tokenapp_detail" href="https://localhost:44306/Home/Decryptage/?@tokenapp"> Cliquez ici lorsque vous avez copié le code</a></p>
+
+        </div>
     </div>
 }
+
+<script>
+
+    window.onload = TokenUser;
+
+    function TokenUser() {
+
+        if (@tokenuser_pass == 1) {
+            document.getElementById('message_tokenapp').style.display = "block";
+            document.getElementById('message_tokenapp_detail').style.display = "block";
+            document.getElementById('btn_valider').style.display = "none";
+            document.getElementById('message_erreur').style.display = "none";
+            document.getElementById("tokenApp").disabled = true;
+        }
+
+        else {
+            document.getElementById('message_tokenapp').style.display = "none";
+            document.getElementById('message_tokenapp_detail').style.display = "none";
+            document.getElementById('message_erreur').style.display = "block";
+        }
+    }
+</script>

@@ -33,3 +33,18 @@ body {
 #row_valider {
     text-align: center;
 }
+
+#message_tokenapp_detail {
+    color: green;
+    margin-top: 15px;
+    font-weight: bold;
+    font-size: 18px;
+    display:none;
+}
+
+#message_tokenapp {
+    color: black;
+    margin-top: 15px;
+    font-weight: bold;
+    font-size: 18px;
+}
