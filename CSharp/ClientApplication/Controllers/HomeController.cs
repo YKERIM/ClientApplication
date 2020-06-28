@@ -6,6 +6,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using System.Web;
 using System.Web.Mvc;
 using WebGrease.Css.Ast.Selectors;
@@ -14,8 +15,9 @@ namespace ClientApplication.Controllers
 {
     public class HomeController : Controller
     {
-        public SqlConnection con = new SqlConnection(@"Data Source=DESKTOP-2LKBDJM;Initial Catalog=ClientApplication;Integrated Security=True");
-        ServiceClient WCFClient = new ServiceClient();
+        public SqlConnection con = new SqlConnection(@"Data Source=JIREN-SAMA;Initial Catalog=ClientApplication;Integrated Security=True");
+        public ServiceClient WCFClient = new ServiceClient();
+        public List<string> file_user = new List<string>();
 
         public ActionResult Index()
         {
@@ -76,29 +78,30 @@ namespace ClientApplication.Controllers
         {
             if (ModelState.IsValid)
             {
-                foreach (HttpPostedFileBase file in UploadedFile)
+                foreach (HttpPostedFileBase file_current in UploadedFile)
                 {
-                    if (file != null)
+                    if (file_current != null)
                     {
                         List<string> csvData = new List<string>();
-                        using (System.IO.StreamReader reader = new System.IO.StreamReader(file.InputStream))
+                        using (System.IO.StreamReader reader = new System.IO.StreamReader(file_current.InputStream))
                         {
                             while (!reader.EndOfStream)
                             {
                                 csvData.Add(reader.ReadLine());
                             }
                         }
-                        string File = string.Join(" ", csvData.ToArray());
-                        var InputFileName = Path.GetFileName(file.FileName);
+                        file_user.Add(string.Join(" ", csvData.ToArray()));
+                        var InputFileName = Path.GetFileName(file_current.FileName);
                         var FolderSavePath = Path.Combine(Server.MapPath("~/UploadedFiles/") + InputFileName);
                         //Save file to server folder  
-                        file.SaveAs(FolderSavePath);
+                        file_current.SaveAs(FolderSavePath);
                         //envoi de données vers WCF 
-                        //WCFClient.KeyDecryptor(File);
                         //assigning file uploaded status to ViewBag for showing message to user.  
                         ViewBag.Message = UploadedFile.Count().ToString() + " fichiers ont été uploadés avec succés.";
                     }
                 }
+
+                WCFClient.DecryptLauncher(file_user);
             }
 
             return View();

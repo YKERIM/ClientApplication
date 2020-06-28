@@ -6,6 +6,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.Text;
+using System.Threading;
 using System.Web.UI.WebControls.WebParts;
 
 namespace ClientWCF
@@ -14,17 +15,8 @@ namespace ClientWCF
     // REMARQUE : pour lancer le client test WCF afin de tester ce service, sélectionnez ServiceClient.svc ou ServiceClient.svc.cs dans l'Explorateur de solutions et démarrez le débogage.
     public class ServiceClient : IServiceClient
     {
-        public SqlConnection con = new SqlConnection(@"Data Source=DESKTOP-2LKBDJM;Initial Catalog=ClientApplication;Integrated Security=True");
-
-        public string attempt = "";
-        public int first = 0;
-        public int second = 0;
-        public int third = 0;
-        public int fourth = 0;
-
-        public string[] array = {
-            "A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z",
-        };
+        public SqlConnection con = new SqlConnection(@"Data Source=JIREN-SAMA;Initial Catalog=ClientApplication;Integrated Security=True");
+        public int compteur = 0;
 
         public string TokenApp(string TokenApp)
         {
@@ -54,19 +46,52 @@ namespace ClientWCF
         public string Decrypt(string text, string key)
         {
             var result = new StringBuilder();
+            
 
             for (int c = 0; c < text.Length; c++)
                 result.Append((char)((uint)text[c] ^ (uint)key[c % key.Length]));
+
             if(key == "ZZZZ")
             {
+                compteur = compteur + 1;
                 System.Diagnostics.Debug.WriteLine(result.ToString());
+                System.Diagnostics.Debug.WriteLine("Thread " + compteur + " finished at : " + DateTime.Now);
             }
             return result.ToString();
         }
 
-
-        public void KeyDecryptor(string text)
+        public void DecryptLauncher(List<string> file_user)
         {
+            
+                string[] stringArray = new string[2];
+
+                for (int i = 0; i < 5; i++)
+                {
+                    stringArray[0] = file_user[i];
+                    stringArray[1] = "" + i;
+
+                    Thread t = new Thread(KeyDecryptor);
+                    t.Start(stringArray);
+                    Thread.Sleep(10);
+                }
+        }
+        public void KeyDecryptor(Object args)
+        {
+            Array argArray = new object[2];
+            argArray = (Array)args;
+            string text = (string)argArray.GetValue(0);
+            string compteur = (string)argArray.GetValue(1);
+
+            int first = 25;
+            int second = 25;
+            int third = 25;
+            int fourth = 25;
+            string attempt = "";
+            string[] array = {
+            "A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z",
+            };
+
+
             while (!attempt.Equals("ZZZZ"))
             {
                 if (first == 26)
@@ -92,7 +117,7 @@ namespace ClientWCF
                     break;
                 }
                 attempt = array[fourth] + array[third] + array[second] + array[first];
-                Decrypt(text, attempt); 
+                Decrypt(text, attempt);
                 first++;
             }
         }
