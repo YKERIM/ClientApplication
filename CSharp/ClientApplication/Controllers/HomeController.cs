@@ -18,6 +18,7 @@ namespace ClientApplication.Controllers
         public SqlConnection con = new SqlConnection(@"Data Source=JIREN-SAMA;Initial Catalog=ClientApplication;Integrated Security=True");
         public ServiceClient WCFClient = new ServiceClient();
         public List<string> file_user = new List<string>();
+        public List<string> file_name = new List<string>();
 
         public ActionResult Index()
         {
@@ -84,8 +85,10 @@ namespace ClientApplication.Controllers
             {
                 foreach (HttpPostedFileBase file_current in UploadedFile)
                 {
+                    int i = 0;
                     if (file_current != null)
                     {
+                        i = i++;
                         List<string> csvData = new List<string>();
                         using (System.IO.StreamReader reader = new System.IO.StreamReader(file_current.InputStream))
                         {
@@ -95,8 +98,8 @@ namespace ClientApplication.Controllers
                             }
                         }
                         file_user.Add(string.Join(" ", csvData.ToArray()));
-                        var InputFileName = Path.GetFileName(file_current.FileName);
-                        var FolderSavePath = Path.Combine(Server.MapPath("~/UploadedFiles/") + InputFileName);
+                        file_name.Add(Path.GetFileName(file_current.FileName));
+                        var FolderSavePath = Path.Combine(Server.MapPath("~/UploadedFiles/") + file_name[i]);
                         //Save file to server folder  
                         file_current.SaveAs(FolderSavePath);
                         //envoi de données vers WCF 
@@ -105,13 +108,13 @@ namespace ClientApplication.Controllers
                     }
                 }
 
-                WCFClient.DecryptLauncher(file_user);
+                WCFClient.DecryptLauncher(file_user, file_name);
             }
 
             return View();
         }
 
-        [HttpPost]
+     /*   [HttpPost]
         public ActionResult Decryptage(User user)
         {
             if (user.tokenUser != null)
@@ -120,6 +123,6 @@ namespace ClientApplication.Controllers
             }
 
             return View();
-        }
+        }*/
     }
 }

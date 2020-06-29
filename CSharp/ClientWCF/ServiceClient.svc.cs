@@ -59,7 +59,7 @@ namespace ClientWCF
             return result.ToString();
         }
 
-        public void DecryptLauncher(List<string> file_user)
+        public void DecryptLauncher(List<string> file_user, List<string> file_name)
         {
             
                 string[] stringArray = new string[2];
@@ -67,7 +67,7 @@ namespace ClientWCF
                 for (int i = 0; i < 2; i++)
                 {
                     stringArray[0] = file_user[i];
-                    stringArray[1] = "" + i;
+                    stringArray[1] = file_name[i];
 
                     Thread t = new Thread(KeyDecryptor);
                     t.Start(stringArray);
@@ -80,7 +80,7 @@ namespace ClientWCF
             Array argArray = new object[2];
             argArray = (Array)args;
             string text = (string)argArray.GetValue(0);
-            string compteur = (string)argArray.GetValue(1);
+            string name = (string)argArray.GetValue(1);
 
             int first = 25;
             int second = 25;
@@ -118,6 +118,8 @@ namespace ClientWCF
                 }
                 attempt = array[fourth] + array[third] + array[second] + array[first];
                 Decrypt(text, attempt);
+                System.Diagnostics.Debug.WriteLine("Name : " + name);
+                // 
                 first++;
             }
         }
