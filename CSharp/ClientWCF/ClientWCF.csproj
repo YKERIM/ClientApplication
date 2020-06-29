@@ -66,6 +66,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IServiceClient.cs" />
+    <Compile Include="MailManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServiceClient.svc.cs">
       <DependentUpon>ServiceClient.svc</DependentUpon>
