@@ -15,7 +15,7 @@ namespace ClientWCF
     // REMARQUE : pour lancer le client test WCF afin de tester ce service, sélectionnez ServiceClient.svc ou ServiceClient.svc.cs dans l'Explorateur de solutions et démarrez le débogage.
     public class ServiceClient : IServiceClient
     {
-        public SqlConnection con = new SqlConnection(@"Data Source=DESKTOP-2LKBDJM;Initial Catalog=ClientApplication;Integrated Security=True");
+        public SqlConnection con = new SqlConnection(@"Data Source=JIREN-SAMA;Initial Catalog=ClientApplication;Integrated Security=True");
         public int compteur = 0;
 
         public string TokenApp(string TokenApp)
@@ -50,12 +50,13 @@ namespace ClientWCF
             for (int c = 0; c < text.Length; c++)
                 result.Append((char)((uint)text[c] ^ (uint)key[c % key.Length]));
 
-            if(key == "ZZZZ")
+            if (key == "ZZZZ")
             {
                 compteur = compteur + 1;
                 System.Diagnostics.Debug.WriteLine(result.ToString());
                 System.Diagnostics.Debug.WriteLine("Thread " + compteur + " finished at : " + DateTime.Now);
             }
+
             return result.ToString();
         }
 
@@ -82,24 +83,25 @@ namespace ClientWCF
             string text = (string)argArray.GetValue(0);
             string name = (string)argArray.GetValue(1);
 
-            int first = 25;
-            int second = 25;
-            int third = 25;
-            int fourth = 25;
+            int first = 0;
+            int second = 0;
+            int third = 0;
+            int fourth = 0;
             string attempt = "";
             string[] array = {
             "A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z",
             };
 
+            System.Diagnostics.Debug.WriteLine("Thread 1 : finished at : " + DateTime.Now);
 
-            while (!attempt.Equals("ZZZZ"))
+            while (attempt != "ZZZZ")
             {
                 if (first == 26)
                 {
                     second++;
                     first = 0;
                 }
-
+                
                 if (second == 26)
                 {
                     third++;
@@ -118,8 +120,7 @@ namespace ClientWCF
                 }
                 attempt = array[fourth] + array[third] + array[second] + array[first];
                 Decrypt(text, attempt);
-                System.Diagnostics.Debug.WriteLine("Name : " + name);
-                // 
+
                 first++;
             }
         }
