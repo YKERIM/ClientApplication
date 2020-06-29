@@ -28,5 +28,6 @@ public class Orchestrator {
             //Contient le mot secret
             SecretFinder secretFinder = new SecretFinder();
             boolean secretWord = secretFinder.findSecretWord(textDocument);
+            System.out.println("Information trouvée : " + secretWord);
         }     
 }

@@ -14,7 +14,7 @@ import java.util.regex.Pattern;
  */
 public class SecretFinder {
     
-    private final String secretMessage = "l'information secrète";
+    private final String secretMessage = "information secrÃ¨te|information secrète|information secrete";
     
     public boolean findSecretWord(String message) {
         
