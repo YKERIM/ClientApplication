@@ -1,0 +1,61 @@
+﻿@model ClientApplication.Models.User
+
+@{
+    ViewBag.Title = "TokenUser";
+}
+
+
+@{
+    var TokenUser = ViewData["TokenUser_Verification"];
+}
+
+
+<link href="@Url.Content("/Content/TokenUser.css")" rel="stylesheet" type="text/css" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<h1 id="titre_tokenuser">Insérer votre Token User !</h1>
+
+
+@using (Html.BeginForm("TokenUser", "Home"))
+{
+    <div class="row" id="row_tokenuser">
+        <div class="col-md-3">
+        </div>
+
+        <div class="col-md-2 tokenuser">
+            <label for="pass">Token User</label>
+        </div>
+
+        <div class="col-md-3 tokenuser">
+            @Html.TextBoxFor(m => m.tokenUser)
+        </div>
+    </div>
+
+    <div class="row" id="row_valider_tokenuser">
+        <div class="col-md-4">
+        </div>
+
+        <div class="col-md-3 btn_tokenuser">
+            <input id="btn_valider_tokenuser" type="submit" value="Valider" />
+            <p id="message_erreur_tokenuser" style="color:red; display:none; margin-top:15px; font-weight:bold; font-size:16px">Votre TokenUser est faux !</p>
+        </div>
+    </div>
+}
+
+<script>
+
+    window.onload = TokenUser;
+
+    function TokenUser() {
+
+        if (@TokenUser == 0) {
+            document.getElementById('message_erreur_tokenuser').style.display = "block";
+
+        }
+
+        else {
+            document.getElementById('message_erreur_tokenuser').style.display = "none";
+
+        }
+    }
+</script>

@@ -9,6 +9,8 @@ using System.Linq;
 using System.Threading;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.SessionState;
+using System.Web.UI;
 using WebGrease.Css.Ast.Selectors;
 
 namespace ClientApplication.Controllers
@@ -20,12 +22,19 @@ namespace ClientApplication.Controllers
         public List<string> file_user = new List<string>();
         public List<string> file_name = new List<string>();
 
+
         public ActionResult Index()
         {
             return View();
         }
 
         public ActionResult Authentification()
+        {
+            return View();
+        }
+
+
+        public ActionResult TokenUser()
         {
             return View();
         }
@@ -38,12 +47,13 @@ namespace ClientApplication.Controllers
         [HttpPost]
         public ActionResult Index(User user)
         {
+
             SqlDataAdapter sda = new SqlDataAdapter("Select Count(*) From UserList where Firstname ='" + user.userName + "' and UserPassword ='" + user.password + "'", con);
             DataTable dt = new DataTable();
             sda.Fill(dt);
             if (dt.Rows[0][0].ToString() == "1")
             {
-                SqlDataAdapter sdb = new SqlDataAdapter("Update UserList set State = 1 where Firstname ='" + user.userName + "' and UserPassword ='" + user.password + "'" , con);
+                SqlDataAdapter sdb = new SqlDataAdapter("Update UserList set State = 1 where Firstname ='" + user.userName + "' and UserPassword ='" + user.password + "'", con);
                 sdb.Fill(dt);
                 Response.Redirect("~/Home/Authentification");
             }
@@ -58,10 +68,14 @@ namespace ClientApplication.Controllers
         [HttpPost]
         public ActionResult Authentification(User user)
         {
-            string TokenUser = WCFClient.TokenApp(user.tokenApp) ;
-            
+
+            string TokenUser = WCFClient.TokenApp(user.tokenApp);
+
             if (TokenUser != null)
             {
+                var UserTokenApp = user.tokenApp;
+                Session["UserTokenApp"] = UserTokenApp.ToString();
+
                 ViewData["TokenUser"] = "Votre TokenUser est : " + TokenUser;
                 ViewData["TokenApp"] = user.tokenApp;
                 //Response.Redirect("~/Home/Decryptage");
@@ -111,18 +125,32 @@ namespace ClientApplication.Controllers
                 WCFClient.DecryptLauncher(file_user, file_name);
             }
 
+
+
             return View();
         }
 
-     /*   [HttpPost]
-        public ActionResult Decryptage(User user)
+        [HttpPost]
+        public ActionResult TokenUser(User user)
         {
+            string UserTokenApp = (string)System.Web.HttpContext.Current.Session["UserTokenApp"];
+
             if (user.tokenUser != null)
             {
-
+                SqlDataAdapter sda = new SqlDataAdapter("Select Count(*) From UserList where TokenUser ='" + user.tokenUser + "' and TokenApp ='" + UserTokenApp + "'", con);
+                DataTable dt = new DataTable();
+                sda.Fill(dt);
+                if (dt.Rows[0][0].ToString() == "1")
+                {
+                     Response.Redirect("~/Home/Decryptage");
+                }
+                else
+                {
+                    ViewData["TokenUser_Verification"] = 0;
+                }
             }
 
             return View();
-        }*/
+        }
     }
 }

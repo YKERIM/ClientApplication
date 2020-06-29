@@ -142,6 +142,7 @@
     <Content Include="Content\bootstrap-reboot.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\TokenUser.css" />
     <Content Include="Content\DecryptPage.css" />
     <Content Include="Content\HomePage.css" />
     <Content Include="Content\HomePage.js" />
@@ -277,6 +278,7 @@
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="Views\Home\Authentification.cshtml" />
+    <Content Include="Views\Home\TokenUser.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
