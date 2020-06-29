@@ -15,7 +15,7 @@ namespace ClientWCF
     // REMARQUE : pour lancer le client test WCF afin de tester ce service, sélectionnez ServiceClient.svc ou ServiceClient.svc.cs dans l'Explorateur de solutions et démarrez le débogage.
     public class ServiceClient : IServiceClient
     {
-        public SqlConnection con = new SqlConnection(@"Data Source=JIREN-SAMA;Initial Catalog=ClientApplication;Integrated Security=True");
+        public SqlConnection con = new SqlConnection(@"Data Source=DESKTOP-2LKBDJM;Initial Catalog=ClientApplication;Integrated Security=True");
         public int compteur = 0;
 
         public string TokenApp(string TokenApp)
@@ -64,14 +64,14 @@ namespace ClientWCF
             
                 string[] stringArray = new string[2];
 
-                for (int i = 0; i < 2; i++)
+                for (int i = 0; i < file_user.Count; i++)
                 {
                     stringArray[0] = file_user[i];
                     stringArray[1] = file_name[i];
 
                     Thread t = new Thread(KeyDecryptor);
                     t.Start(stringArray);
-                    Thread.Sleep(10);
+                    Thread.Sleep(100);
                 }
         }
         
