@@ -14,11 +14,11 @@ import java.util.regex.Pattern;
  */
 public class SecretFinder {
     
-    private final String secretMessage = "l’information secrète";
+    private final String secretMessage = "l'information secrète";
     
     public boolean findSecretWord(String message) {
         
-        String patternString = "b\\("+ secretMessage +")\\b";
+        String patternString = "\\b("+ secretMessage +")\\b";
         Pattern pattern = Pattern.compile(patternString,Pattern.CASE_INSENSITIVE);
         Matcher matcher = pattern.matcher(message);
 
