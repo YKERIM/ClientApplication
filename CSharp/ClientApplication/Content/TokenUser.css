@@ -8,13 +8,24 @@
     overflow: hidden;
 }
 
-#titre_decrypt {
+#titre_tokenuser{
     text-align: center;
     font-weight: bold;
     color: white;
-    margin-bottom:15px;
+    margin-bottom:25px;
 }
 
-#row_decrypt{
+#row_tokenuser {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.col-md-2.tokenuser {
+    text-align: center;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.col-md-3.btn_tokenuser{
     text-align:center;
 }

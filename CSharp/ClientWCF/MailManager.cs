@@ -25,7 +25,7 @@ namespace ClientWCF
 
         private MailManager()
         {
-            fromAddress = new MailAddress("meltzer.adrien@gmail.com", "DAD System");
+            fromAddress = new MailAddress("sambao407@gmail.com", "DAD System");
         }
 
         public void sendEmailResult(string username_destinataire)

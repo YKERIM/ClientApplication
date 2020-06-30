@@ -14,5 +14,6 @@ namespace ClientApplication.Models
         public string tokenApp { get; set; }
 
         public string tokenUser { get; set; }
+
     }
 }

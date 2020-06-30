@@ -50,12 +50,13 @@ namespace ClientWCF
             for (int c = 0; c < text.Length; c++)
                 result.Append((char)((uint)text[c] ^ (uint)key[c % key.Length]));
 
-            if(key == "ZZZZ")
+            if (key == "ZZZZ")
             {
                 compteur = compteur + 1;
                 //System.Diagnostics.Debug.WriteLine(result.ToString());
                 //System.Diagnostics.Debug.WriteLine("Thread " + compteur + " finished at : " + DateTime.Now);
             }
+
             return result.ToString();
         }
 
@@ -90,16 +91,16 @@ namespace ClientWCF
             string[] array = {
             "A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z",
             };
+            System.Diagnostics.Debug.WriteLine("Thread 1 : begin at : " + DateTime.Now);
 
-
-            while (!attempt.Equals("ZZZZ"))
+            while (attempt != "ZZZZ")
             {
                 if (first == 26)
                 {
                     second++;
                     first = 0;
                 }
-
+                
                 if (second == 26)
                 {
                     third++;
@@ -117,8 +118,7 @@ namespace ClientWCF
                     break;
                 }
                 attempt = array[fourth] + array[third] + array[second] + array[first];
-                string decryptedText = Decrypt(text, attempt);
-                sendToJava(name, decryptedText, attempt);
+                Decrypt(text, attempt);
                 first++;
             }
             System.Diagnostics.Debug.WriteLine("Name : " + name);

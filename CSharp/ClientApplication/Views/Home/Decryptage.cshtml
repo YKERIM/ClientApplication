@@ -9,21 +9,27 @@
 
 <h1 id="titre_decrypt">Vous pouvez à présent décrypter vos fichiers !</h1>
 
-
-
 @using (Html.BeginForm("Decryptage", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
-    <div>
+    <div class="row" id="row_decrypt">
 
-        @Html.TextBox("UploadedFile", "", new { @type = "file", @multiple = "multiple" })
+        <div class="col-md-3">
+        </div>
 
-        <input type="submit" value="Decrypter vos fichiers !" />
+        <div class="col-md-3">
+            @Html.TextBox("UploadedFile", "", new { @type = "file", @multiple = "multiple" })
 
-        @{
-            if (ViewBag.Message != null)
-            {
-                @ViewBag.Message
+        </div>
+
+        <div class="col-md-3">
+            <input type="submit" value="Decrypter vos fichiers !" />
+            @{
+                if (ViewBag.Message != null)
+                {
+                    @ViewBag.Message
+                }
             }
-        }
+        </div>
+
     </div>
 }
