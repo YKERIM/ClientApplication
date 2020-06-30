@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.ServiceModel;
+using System.ServiceModel.Web;
 using System.Text;
 
 namespace ClientWCF
@@ -14,5 +16,21 @@ namespace ClientWCF
         [OperationContract]
         string TokenApp(string token);
 
+        [OperationContract(Name = "getJavaFile")]
+        [WebGet(UriTemplate = "getJavaFile/{value}")]
+        JavaFile getJavaFile(string value);
+    }
+
+    [DataContract]
+    public class JavaFile
+    {
+        [DataMember]
+        public string fileName { get; set; }
+
+        [DataMember]
+        public string key { get; set; }
+
+        [DataMember]
+        public string secretWord { get; set; }
     }
 }
