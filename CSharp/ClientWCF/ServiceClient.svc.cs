@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.ServiceModel;
@@ -15,7 +16,7 @@ namespace ClientWCF
     // REMARQUE : pour lancer le client test WCF afin de tester ce service, sélectionnez ServiceClient.svc ou ServiceClient.svc.cs dans l'Explorateur de solutions et démarrez le débogage.
     public class ServiceClient : IServiceClient
     {
-        public SqlConnection con = new SqlConnection(@"Data Source=DESKTOP-2LKBDJM;Initial Catalog=ClientApplication;Integrated Security=True");
+        public SqlConnection con = new SqlConnection(@"Data Source=lenovo-odeb;Initial Catalog=ClientApplication;Integrated Security=True");
         public int compteur = 0;
 
         public string TokenApp(string TokenApp)
@@ -53,8 +54,8 @@ namespace ClientWCF
             if (key == "ZZZZ")
             {
                 compteur = compteur + 1;
-                System.Diagnostics.Debug.WriteLine(result.ToString());
-                System.Diagnostics.Debug.WriteLine("Thread " + compteur + " finished at : " + DateTime.Now);
+                //System.Diagnostics.Debug.WriteLine(result.ToString());
+                //System.Diagnostics.Debug.WriteLine("Thread " + compteur + " finished at : " + DateTime.Now);
             }
 
             return result.ToString();
@@ -121,6 +122,35 @@ namespace ClientWCF
                 Decrypt(text, attempt);
                 first++;
             }
+            System.Diagnostics.Debug.WriteLine("Name : " + name);
         }
+
+        private void sendToJava(string fileName, string fileContent, string key)
+        {
+            using (var service = new ComService.ComEndpointClient("ComPort"))
+            {
+                var result = service.checkFileOperation(fileName, fileContent, key);
+            }
+        }
+
+        public JavaFile getJavaFile(string value)
+        {
+            System.Diagnostics.Debug.WriteLine(value);
+            List<string> stringList = value.Split('|').ToList();
+
+            JavaFile javaData = new JavaFile()
+            {
+                fileName = stringList[0],
+                key = stringList[1],
+                secretWord = stringList[2]
+            };
+
+            System.Diagnostics.Debug.WriteLine(javaData.fileName);
+
+
+            return javaData;
+
+        }
+
     }
 }

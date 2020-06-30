@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://receptionplatform.java.com/" targetNamespace="http://receptionplatform.java.com/" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="checkFileOperation" type="tns:checkFileOperation" />
+  <xs:element name="checkFileOperationResponse" type="tns:checkFileOperationResponse" />
+  <xs:complexType name="checkFileOperation">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="fileName" type="xs:string" />
+      <xs:element minOccurs="0" name="fileContent" type="xs:string" />
+      <xs:element minOccurs="0" name="cypherKey" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="checkFileOperationResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="operationResult" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>
