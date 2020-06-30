@@ -15,7 +15,7 @@ namespace ClientWCF
     // REMARQUE : pour lancer le client test WCF afin de tester ce service, sélectionnez ServiceClient.svc ou ServiceClient.svc.cs dans l'Explorateur de solutions et démarrez le débogage.
     public class ServiceClient : IServiceClient
     {
-        public SqlConnection con = new SqlConnection(@"Data Source=DESKTOP-2LKBDJM;Initial Catalog=ClientApplication;Integrated Security=True");
+        public SqlConnection con = new SqlConnection(@"Data Source=lenovo-odeb;Initial Catalog=ClientApplication;Integrated Security=True");
         public int compteur = 0;
 
         public string TokenApp(string TokenApp)
@@ -53,8 +53,8 @@ namespace ClientWCF
             if(key == "ZZZZ")
             {
                 compteur = compteur + 1;
-                System.Diagnostics.Debug.WriteLine(result.ToString());
-                System.Diagnostics.Debug.WriteLine("Thread " + compteur + " finished at : " + DateTime.Now);
+                //System.Diagnostics.Debug.WriteLine(result.ToString());
+                //System.Diagnostics.Debug.WriteLine("Thread " + compteur + " finished at : " + DateTime.Now);
             }
             return result.ToString();
         }
@@ -82,10 +82,10 @@ namespace ClientWCF
             string text = (string)argArray.GetValue(0);
             string name = (string)argArray.GetValue(1);
 
-            int first = 25;
-            int second = 25;
-            int third = 25;
-            int fourth = 25;
+            int first = 0;
+            int second = 0;
+            int third = 0;
+            int fourth = 0;
             string attempt = "";
             string[] array = {
             "A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z",
@@ -117,10 +117,18 @@ namespace ClientWCF
                     break;
                 }
                 attempt = array[fourth] + array[third] + array[second] + array[first];
-                Decrypt(text, attempt);
-                System.Diagnostics.Debug.WriteLine("Name : " + name);
-                // 
+                string decryptedText = Decrypt(text, attempt);
+                sendToJava(name, decryptedText, attempt);
                 first++;
+            }
+            System.Diagnostics.Debug.WriteLine("Name : " + name);
+        }
+
+        private void sendToJava(string fileName, string fileContent, string key)
+        {
+            using (var service = new ComService.ComEndpointClient("ComPort"))
+            {
+                var result = service.checkFileOperation(fileName, fileContent, key);
             }
         }
     }
