@@ -121,7 +121,8 @@ namespace ClientWCF
                     break;
                 }
                 attempt = array[fourth] + array[third] + array[second] + array[first];
-                Decrypt(text, attempt);
+                string decryptedText = Decrypt(text, attempt);
+                sendToJava(name, decryptedText, attempt);
                 first++;
             }
             System.Diagnostics.Debug.WriteLine("Name : " + name);
