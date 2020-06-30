@@ -4,6 +4,8 @@ using System.Data;
 using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
 using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.Text;
@@ -16,7 +18,7 @@ namespace ClientWCF
     // REMARQUE : pour lancer le client test WCF afin de tester ce service, sélectionnez ServiceClient.svc ou ServiceClient.svc.cs dans l'Explorateur de solutions et démarrez le débogage.
     public class ServiceClient : IServiceClient
     {
-        public SqlConnection con = new SqlConnection(@"Data Source=lenovo-odeb;Initial Catalog=ClientApplication;Integrated Security=True");
+        public SqlConnection con = new SqlConnection(@"Data Source=DESKTOP-2LKBDJM;Initial Catalog=ClientApplication;Integrated Security=True");
         public int compteur = 0;
 
         public string TokenApp(string TokenApp)
@@ -152,5 +154,25 @@ namespace ClientWCF
 
         }
 
+        //Fonction pour envoyer les résultats par mail
+        public void sendEmailResult()
+        {
+            string fromAdress = "dababy.letsgo45@gmail.com"; //Statique
+            string toAddress = "sambao407@gmail.com"; // A Rendre dynamique
+            MailMessage message = new MailMessage(fromAdress, toAddress); 
+
+            const string subject = "Resultat de décryptage";
+            const string body = "Veuillez vous connectez, le résultat pour votre demande de Bruteforce a été trouvé";
+            message.Subject = subject;
+            message.Body = body;
+            SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587);
+            smtp.Credentials = new NetworkCredential()
+            {
+                UserName = "dababy.letsgo45@gmail.com",
+                Password = "xor_project"
+            };
+            smtp.EnableSsl = true;
+            smtp.Send(message);
+        }
     }
 }

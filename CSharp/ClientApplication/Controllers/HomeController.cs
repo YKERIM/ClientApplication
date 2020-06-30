@@ -17,7 +17,7 @@ namespace ClientApplication.Controllers
 {
     public class HomeController : Controller
     {
-        public SqlConnection con = new SqlConnection(@"Data Source=lenovo-odeb;Initial Catalog=ClientApplication;Integrated Security=True");
+        public SqlConnection con = new SqlConnection(@"Data Source=DESKTOP-2LKBDJM;Initial Catalog=ClientApplication;Integrated Security=True");
         public ServiceClient WCFClient = new ServiceClient();
         public List<string> file_user = new List<string>();
         public List<string> file_name = new List<string>();
@@ -68,7 +68,7 @@ namespace ClientApplication.Controllers
         [HttpPost]
         public ActionResult Authentification(User user)
         {
-
+            //WCFClient.sendEmailResult();
             string TokenUser = WCFClient.TokenApp(user.tokenApp);
 
             if (TokenUser != null)
