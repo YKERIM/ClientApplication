@@ -21,34 +21,6 @@ public class Connection implements IConnection {
     private static final String USERNAME = "system";
     private static final String PASSWORD = "root";
     
-    public void connection(){  
-        
-        System.out.println("launch");
-        
-        try{  
-
-            try (java.sql.Connection con = DriverManager.getConnection(CONNECTURL,USERNAME,PASSWORD)) {
-
-                Statement stmt = con.createStatement();
-
-                ResultSet rs = stmt.executeQuery("SELECT owner, table_name FROM all_tables");
-                System.out.println(rs);
-                while (rs.next()) {
-                    System.out.println(rs.getString(1)+"  "+rs.getString(2));  
-                }
-                
-                con.close(); 
-
-            } catch(Exception e){ 
-                System.out.println(e);
-            }  
-
-        } catch(Exception e){ 
-            System.out.println(e);
-        }  
-
-    }    
-
     public static List<String> getListWord() {
         
         List<String> listWord = new ArrayList<>();

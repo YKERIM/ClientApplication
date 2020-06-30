@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.ServiceModel;
@@ -122,5 +123,25 @@ namespace ClientWCF
                 first++;
             }
         }
+
+        public JavaFile getJavaFile(string value)
+        {
+            System.Diagnostics.Debug.WriteLine(value);
+            List<string> stringList = value.Split('|').ToList();
+
+            JavaFile javaData = new JavaFile()
+            {
+                fileName = stringList[0],
+                key = stringList[1],
+                secretWord = stringList[2]
+            };
+
+            System.Diagnostics.Debug.WriteLine(javaData.fileName);
+
+
+            return javaData;
+
+        }
+
     }
 }
