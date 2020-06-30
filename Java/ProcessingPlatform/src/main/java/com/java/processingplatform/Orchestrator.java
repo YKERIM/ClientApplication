@@ -38,11 +38,10 @@ public class Orchestrator {
             
             //Contient le mot secret
             SecretFinder secretFinder = new SecretFinder();
-            boolean secretWord = secretFinder.findSecretWord(textDocument);
+            String secretWord = secretFinder.findSecretWord(textDocument);
             System.out.println("Information trouvée : " + secretWord);
-            
             try {
-                sendMessage("fichier_07.txt","AZZA","Ceci est une info secrete");
+                sendMessage(fileToCheck.getFileName(),fileToCheck.getKey(),secretWord);
             } catch (IOException ex) {
                 Logger.getLogger(Orchestrator.class.getName()).log(Level.SEVERE, null, ex);
             }
