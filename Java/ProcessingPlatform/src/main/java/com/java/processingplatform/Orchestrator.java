@@ -40,11 +40,15 @@ public class Orchestrator {
             SecretFinder secretFinder = new SecretFinder();
             String secretWord = secretFinder.findSecretWord(textDocument);
             System.out.println("Information trouvée : " + secretWord);
-            try {
-                sendMessage(fileToCheck.getFileName(),fileToCheck.getKey(),secretWord);
-            } catch (IOException ex) {
-                Logger.getLogger(Orchestrator.class.getName()).log(Level.SEVERE, null, ex);
+            
+            if (coverage >= 65 && secretWord == "true") {
+                try {
+                    sendMessage(fileToCheck.getFileName(),fileToCheck.getKey(),secretWord);
+                } catch (IOException ex) {
+                    Logger.getLogger(Orchestrator.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
+            
         }     
         
         public void sendMessage(String fileName, String key, String secretMessage) throws IOException {
