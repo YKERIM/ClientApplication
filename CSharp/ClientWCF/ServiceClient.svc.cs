@@ -173,6 +173,8 @@ namespace ClientWCF
             };
 
             System.Diagnostics.Debug.WriteLine(javaData.fileName);
+            System.Diagnostics.Debug.WriteLine(javaData.key);
+            System.Diagnostics.Debug.WriteLine(javaData.secretWord);
 
 
             return javaData;

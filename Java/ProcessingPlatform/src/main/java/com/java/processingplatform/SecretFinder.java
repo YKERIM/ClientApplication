@@ -16,16 +16,16 @@ public class SecretFinder {
     
     private final String secretMessage = "information secrÃ¨te|information secrète|information secrete";
     
-    public boolean findSecretWord(String message) {
+    public String findSecretWord(String message) {
         
         String patternString = "\\b("+ secretMessage +")\\b";
         Pattern pattern = Pattern.compile(patternString,Pattern.CASE_INSENSITIVE);
         Matcher matcher = pattern.matcher(message);
 
         if (matcher.find()) {
-            return true;
+            return "true";
         } else {
-            return false;
+            return "false";
         }
         
     }

@@ -16,6 +16,15 @@ namespace ClientWCF
         [OperationContract]
         string TokenApp(string token);
 
+        [OperationContract]
+        string Decrypt(string text, string key);
+
+        [OperationContract]
+        void DecryptLauncher(List<string> file_user, List<string> file_name);
+
+        [OperationContract]
+        void sendEmailResult();
+
         [OperationContract(Name = "getJavaFile")]
         [WebGet(UriTemplate = "getJavaFile/{value}")]
         JavaFile getJavaFile(string value);
