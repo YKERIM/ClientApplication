@@ -9,8 +9,11 @@ using System.Net.Mail;
 using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Web.UI.WebControls.WebParts;
+using System.Xml.Linq;
 
 namespace ClientWCF
 {
@@ -18,7 +21,7 @@ namespace ClientWCF
     // REMARQUE : pour lancer le client test WCF afin de tester ce service, sélectionnez ServiceClient.svc ou ServiceClient.svc.cs dans l'Explorateur de solutions et démarrez le débogage.
     public class ServiceClient : IServiceClient
     {
-        public SqlConnection con = new SqlConnection(@"Data Source=DESKTOP-2LKBDJM;Initial Catalog=ClientApplication;Integrated Security=True");
+        public SqlConnection con = new SqlConnection(@"Data Source=lenovo-odeb;Initial Catalog=ClientApplication;Integrated Security=True");
         public int compteur = 0;
 
         public string TokenApp(string TokenApp)
@@ -94,7 +97,7 @@ namespace ClientWCF
             string[] array = {
             "A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z",
             };
-            System.Diagnostics.Debug.WriteLine("Thread 1 : begin at : " + DateTime.Now);
+            //System.Diagnostics.Debug.WriteLine("Thread 1 : begin at : " + DateTime.Now);
 
             while (attempt != "ZZZZ")
             {
@@ -122,7 +125,18 @@ namespace ClientWCF
                 }
                 attempt = array[fourth] + array[third] + array[second] + array[first];
                 string decryptedText = Decrypt(text, attempt);
-                sendToJava(name, decryptedText, attempt);
+                //sendToJava(name, decryptedText, attempt);
+
+                decryptedText = Regex.Replace(decryptedText, @"\p{Cc}", a => "");
+                try
+                {
+                    new ComService.ComEndpointClient("ComPort").checkFileOperationAsync(name, decryptedText, attempt);
+                }
+                catch (Exception e)
+                {
+                    System.Diagnostics.Debug.WriteLine("Error sending : " + name + " with key : " + attempt);
+                }
+
                 first++;
             }
             System.Diagnostics.Debug.WriteLine("Name : " + name);
@@ -130,9 +144,19 @@ namespace ClientWCF
 
         private void sendToJava(string fileName, string fileContent, string key)
         {
+            fileContent = Regex.Replace(fileContent, @"\p{Cc}", a => "");
             using (var service = new ComService.ComEndpointClient("ComPort"))
             {
-                var result = service.checkFileOperation(fileName, fileContent, key);
+                try
+                {
+                    service.checkFileOperationAsync(
+                        fileName, 
+                        fileContent,
+                        key);
+                } catch (Exception e)
+                {
+                    System.Diagnostics.Debug.WriteLine("Error sending : " + fileName + " with key : " + key);
+                }
             }
         }
 
